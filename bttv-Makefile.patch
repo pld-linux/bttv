@@ -1,6 +1,6 @@
-diff -urN bttv-0.7.67.orig/driver/Makefile bttv-0.7.67/driver/Makefile
---- bttv-0.7.67.orig/driver/Makefile	Wed May 16 13:36:48 2001
-+++ bttv-0.7.67/driver/Makefile	Wed May 23 00:16:56 2001
+diff -urN bttv-0.7.78.orig/driver/Makefile bttv-0.7.78/driver/Makefile
+--- bttv-0.7.78.orig/driver/Makefile	Mon Sep 10 21:06:48 2001
++++ bttv-0.7.78/driver/Makefile	Mon Sep 10 21:07:08 2001
 @@ -3,8 +3,8 @@
  
  # where the kernel sources are located
@@ -11,7 +11,7 @@ diff -urN bttv-0.7.67.orig/driver/Makefile bttv-0.7.67/driver/Makefile
 +KERNEL_DIR := /usr/src/linux
  
  # kernel version
- CURRENT := $(shell grep "UTS_RELEASE" $(KERNEL_DIR)/include/linux/version.h | cut -d'"' -f2)
+ CURRENT	:= $(shell ./uts-release $(KERNEL_DIR))
 @@ -17,9 +17,7 @@
    KCOMPAT := kcompat24.o
  endif
@@ -21,14 +21,14 @@ diff -urN bttv-0.7.67.orig/driver/Makefile bttv-0.7.67/driver/Makefile
 -	echo "/lib/modules/$(CURRENT)/misc")
 +MODULE_DIR := $(DESTDIR)/lib/modules/$(CURRENT)/misc
  
- # current -ac kernels and kernels with v4l2 patch applied need this
- #EXTRA_CFLAGS="-DNEW_VIDEODEV"
+ EXTRA_CFLAGS=-g
+ 
 @@ -59,7 +57,7 @@
- 	@grep "{ \"" tuner.c | perl -ne '/"([^"]+)"/;printf("  type=%d - %s\n",$$i++,$$1)'
  
  install:
+ 	strip --strip-debug *.o
 -	su -c "set -x; mkdir -p $(MODULE_DIR); cp -v $(M_OBJS) $(MX_OBJS) $(MODULE_DIR); depmod -a"
-+	set -x; mkdir -p $(MODULE_DIR); cp -v $(M_OBJS) $(MX_OBJS) $(MODULE_DIR);
++	set -x; mkdir -p $(MODULE_DIR); cp -v $(M_OBJS) $(MX_OBJS) $(MODULE_DIR)
  
  clean:
  	-rm -f *.o .*.o.flags *~
