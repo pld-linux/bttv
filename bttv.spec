@@ -1,13 +1,13 @@
 #
-# Conditional build:
-# _without_dist_kernel		without kernel from distribution
-#
 # TODO: UP/SMP (if this spec is useful for something now?)
+#
+# Conditional build:
+%bcond_without  dist_kernel	# without kernel from distribution
 #
 %define		_kernel_ver	%(grep UTS_RELEASE %{_kernelsrcdir}/include/linux/version.h 2>/dev/null | cut -d'"' -f2)
 %define		_kernel_ver_str	%(echo %{_kernel_ver} | sed s/-/_/g)
-%define		smpstr	%{?_with_smp:-smp}
-%define		smp	%{?_with_smp:1}%{!?_with_smp:0}
+%define		smpstr	%{?with_smp:-smp}
+%define		smp	%{?with_smp:1}%{!?with_smp:0}
 
 Summary:	BrookTree TV tuner driver
 Summary(pl):	Sterownik dla kart TV na chipsecie BrookTree
@@ -20,7 +20,7 @@ Source0:	http://www.strusel007.de/linux/bttv/%{name}-%{version}.tar.gz
 # Source0-md5:	61a0e73e433173c10b6edd2e9f27d69e
 Patch0:		%{name}-Makefile.patch
 URL:		http://www.strusel007.de/linux/bttv/
-%{!?_without_dist_kernel:BuildPrereq:	kernel-source}
+%{?with_dist_kernel:BuildPrereq:	kernel-source}
 ExclusiveArch:	%{ix86}
 Requires:	i2c
 PreReq:		modutils
@@ -43,8 +43,8 @@ Summary(pl):	Modu³y j±dra do obs³ugi tunerów TV BrookTree
 Group:		Base/Kernel
 Release:	%{release}@%{_kernel_ver_str}
 PreReq:		modutils >= 2.4.6-4
-%{!?_without_dist_kernel:Conflicts:	kernel < %{_kernel_ver}, kernel > %{_kernel_ver}}
-%{!?_without_dist_kernel:Conflicts:	kernel-%{?_with_smp:up}%{!?_with_smp:smp}}
+%{?with_dist_kernel:Conflicts:	kernel < %{_kernel_ver}, kernel > %{_kernel_ver}}
+%{?with_dist_kernel:Conflicts:	kernel-%{?with_smp:up}%{!?with_smp:smp}}
 Requires:	%{name} = %{version}
 Obsoletes:	bttv
 
