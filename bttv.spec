@@ -14,8 +14,6 @@ Version:	0.7.87
 Release:	1
 License:	GPL
 Group:		Base/Kernel
-Group(de):	Grundsätzlich/Kern
-Group(pl):	Podstawowe/J±dro
 Source0:	http://www.strusel007.de/linux/bttv/%{name}-%{version}.tar.gz
 Patch0:		%{name}-Makefile.patch
 URL:		http://www.strusel007.de/linux/bttv/
@@ -38,8 +36,6 @@ Modu³y j±dra dodaj±ce obs³ugê kart TV na uk³adach BrookTree BT 848 i 878.
 Summary:	Kernel modules for BrookTree TV tuner
 Summary(pl):	Modu³y j±dra do obs³ugi tunerów TV BrookTree
 Group:		Base/Kernel
-Group(de):	Grundsätzlich/Kern
-Group(pl):	Podstawowe/J±dro
 Release:	%{release}@%{_kernel_ver_str}
 PreReq:		modutils >= 2.4.6-4
 %{!?_without_dist_kernel:Conflicts:	kernel < %{_kernel_ver}, kernel > %{_kernel_ver}}
