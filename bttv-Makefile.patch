@@ -1,0 +1,38 @@
+diff -urN bttv-0.7.50.orig/driver/Makefile bttv-0.7.50/driver/Makefile
+--- bttv-0.7.50.orig/driver/Makefile	Sat Dec  2 11:50:50 2000
++++ bttv-0.7.50/driver/Makefile	Mon Dec 11 19:34:06 2000
+@@ -2,9 +2,9 @@
+ # config
+ 
+ # where the kernel sources are located
+-RUNNING := /usr/src/kernel/$(shell uname -r)
+-KERNEL_DIR := $(shell if test -d $(RUNNING); then echo $(RUNNING); else echo /usr/src/linux; fi)
+-#KERNEL_DIR := /usr/src/linux
++#RUNNING := /usr/src/kernel/$(shell uname -r)
++#KERNEL_DIR := $(shell if test -d $(RUNNING); then echo $(RUNNING); else echo /usr/src/linux; fi)
++KERNEL_DIR := /usr/src/linux
+ 
+ # kernel version
+ CURRENT := $(shell grep "UTS_RELEASE" $(KERNEL_DIR)/include/linux/version.h | cut -d\" -f2)
+@@ -17,9 +17,7 @@
+   KCOMPAT := kcompat24.o
+ endif
+ 
+-MODULE_DIR := $(shell test -d "/lib/modules/$(CURRENT)/kernel" && \
+-	echo "/lib/modules/$(CURRENT)/kernel/drivers/media/video" ||\
+-	echo "/lib/modules/$(CURRENT)/misc")
++MODULE_DIR := $(DESTDIR)/lib/modules/$(CURRENT)/misc
+ 
+ 
+ #################################################
+@@ -54,8 +52,8 @@
+ 	@grep "{ \"" tuner.c | perl -ne '/"([^"]+)"/;printf("  type=%d - %s\n",$$i++,$$1)'
+ 
+ install:
+-	su -c "mkdir -p $(MODULE_DIR); cp -v $(M_OBJS) $(MX_OBJS) $(MI_OBJS) $(MODULE_DIR)"
+-
++	mkdir -p $(MODULE_DIR)
++	cp -v $(M_OBJS) $(MX_OBJS) $(MI_OBJS) $(MODULE_DIR)
+ clean:
+ 	-rm -f *.o .*.o.flags *~
+ 
