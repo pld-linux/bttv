@@ -19,7 +19,7 @@ Group(pl):	Podstawowe/J±dro
 Source0:	http://www.strusel007.de/linux/bttv/%{name}-%{version}.tar.gz
 Patch0:		%{name}-Makefile.patch
 URL:		http://www.strusel007.de/linux/bttv/
-BuildPrereq:	kernel-source
+%{!?_without_dist_kernel:BuildPrereq:	kernel-source}
 ExclusiveArch:	%{ix86}
 Requires:	kernel(i2c)
 Prereq:		modutils
