@@ -54,6 +54,7 @@ Modu³y j±dra dodaj±ce obs³ugê kart TV na uk³adach BrookTree BT 848 i
 
 %package devel
 Summary:	Header files for bttv
+Summary(pl):	Pliki nag³ówkowe bttv
 Group:		Development
 
 %description devel
