@@ -17,6 +17,7 @@ Release:	1
 License:	GPL
 Group:		Base/Kernel
 Source0:	http://www.strusel007.de/linux/bttv/%{name}-%{version}.tar.gz
+# Source0-md5:	61a0e73e433173c10b6edd2e9f27d69e
 Patch0:		%{name}-Makefile.patch
 URL:		http://www.strusel007.de/linux/bttv/
 %{!?_without_dist_kernel:BuildPrereq:	kernel-source}
