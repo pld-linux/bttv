@@ -2,7 +2,7 @@ Summary:	BrookTree TV tuner driver
 Summary(pl):	Sterownik dla kart TV na chipsecie BrookTree
 Name:		bttv
 Version:	0.7.50
-Release:	1
+Release:	2
 License:	GPL
 Group:		Base/Kernel
 Group(de):	Grundsätzlich/Kern
@@ -48,5 +48,5 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-/lib/modules/*/*
+/lib/modules/misc/*
 %doc *.gz
