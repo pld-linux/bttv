@@ -10,7 +10,7 @@
 Summary:	BrookTree TV tuner driver
 Summary(pl):	Sterownik dla kart TV na chipsecie BrookTree
 Name:		bttv
-Version:	0.7.85
+Version:	0.7.86
 Release:	1
 License:	GPL
 Group:		Base/Kernel
@@ -21,7 +21,7 @@ Patch0:		%{name}-Makefile.patch
 URL:		http://www.strusel007.de/linux/bttv/
 %{!?_without_dist_kernel:BuildPrereq:	kernel-source}
 ExclusiveArch:	%{ix86}
-Requires:	kernel(i2c)
+Requires:	i2c
 Prereq:		modutils
 BuildRequires:	i2c-devel
 BuildConflicts:	kernel-source < 2.2.0
@@ -59,15 +59,14 @@ Modu³y j±dra dodaj±ce obs³ugê kart TV na uk³adach BrookTree BT 848 i 878.
 %patch0 -p1
 
 %build
-%{__make} CFLAGS="$RPM_OPT_FLAGS"
-
+%{__make} EXTRA_CFLAGS="$RPM_OPT_FLAGS"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} install DESTDIR=$RPM_BUILD_ROOT
+%{__make} -C driver install DESTDIR=$RPM_BUILD_ROOT
 
-gzip -9nf CARDLIST Changes Insmod-options README* Sound-FAQ Specs
+gzip -9nf CARDLIST Changes Insmod-options README* Sound-FAQ Specs Cards
 
 %post
 /sbin/depmod -a
@@ -81,4 +80,6 @@ rm -rf $RPM_BUILD_ROOT
 %files -n kernel%{smpstr}-misc-bttv
 %defattr(644,root,root,755)
 /lib/modules/*/misc/*
+
+%files
 %doc *.gz
