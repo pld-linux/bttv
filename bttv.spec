@@ -26,11 +26,12 @@ BuildConflicts:	kernel-source < 2.2.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Kernel modules which add support for TV cards based on BrookTree BT 848 and 878
-chips.
+Kernel modules which add support for TV cards based on BrookTree BT
+848 and 878 chips.
 
 %description -l pl
-Modu³y j±dra dodaj±ce obs³ugê kart TV na uk³adach BrookTree BT 848 i 878.
+Modu³y j±dra dodaj±ce obs³ugê kart TV na uk³adach BrookTree BT 848 i
+878.
 
 %package -n kernel%{smpstr}-misc-bttv
 Summary:	Kernel modules for BrookTree TV tuner
@@ -44,11 +45,12 @@ Requires:	%{name} = %{version}
 Obsoletes:	bttv
 
 %description -n kernel%{smpstr}-misc-bttv
-Kernel modules which add support for TV cards based on BrookTree BT 848 and 878
-chips.
+Kernel modules which add support for TV cards based on BrookTree BT
+848 and 878 chips.
 
 %description -n kernel%{smpstr}-misc-bttv -l pl
-Modu³y j±dra dodaj±ce obs³ugê kart TV na uk³adach BrookTree BT 848 i 878.
+Modu³y j±dra dodaj±ce obs³ugê kart TV na uk³adach BrookTree BT 848 i
+878.
 
 %package devel
 Summary:	Header files for bttv
@@ -65,7 +67,7 @@ Pliki nag³ówkowe bttv.
 %patch0 -p1
 
 %build
-%{__make} EXTRA_CFLAGS="$RPM_OPT_FLAGS"
+%{__make} EXTRA_CFLAGS="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -88,6 +90,7 @@ rm -rf $RPM_BUILD_ROOT
 /lib/modules/*/misc/*
 
 %files
+%defattr(644,root,root,755)
 %doc *.gz
 
 %files devel
