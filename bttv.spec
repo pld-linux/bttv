@@ -25,6 +25,7 @@ ExclusiveArch:	%{ix86}
 Requires:	i2c
 PreReq:		modutils
 BuildRequires:	i2c-devel
+BuildRequires:	rpmbuild(macros) >= 1.118
 BuildConflicts:	kernel-source < 2.2.0
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -82,10 +83,10 @@ rm -rf $RPM_BUILD_ROOT
 rm -rf $RPM_BUILD_ROOT
 
 %post	-n kernel%{smpstr}-misc-bttv
-/sbin/depmod -a %{!?_without_dist_kernel:-F /boot/System.map-%{_kernel_ver} }%{_kernel_ver}
+%depmod %{_kernel_ver}
 
 %postun	-n kernel%{smpstr}-misc-bttv
-/sbin/depmod -a %{!?_without_dist_kernel:-F /boot/System.map-%{_kernel_ver} }%{_kernel_ver}
+%depmod %{_kernel_ver}
 
 %files -n kernel%{smpstr}-misc-bttv
 %defattr(644,root,root,755)
