@@ -1,7 +1,9 @@
-
-# conditional build
+#
+# Conditional build:
 # _without_dist_kernel		without kernel from distribution
-
+#
+# TODO: UP/SMP (if this spec is useful for something now?)
+#
 %define		_kernel_ver	%(grep UTS_RELEASE %{_kernelsrcdir}/include/linux/version.h 2>/dev/null | cut -d'"' -f2)
 %define		_kernel_ver_str	%(echo %{_kernel_ver} | sed s/-/_/g)
 %define		smpstr	%{?_with_smp:-smp}
@@ -75,14 +77,14 @@ rm -rf $RPM_BUILD_ROOT
 
 %{__make} -C driver install DESTDIR=$RPM_BUILD_ROOT
 
-%post
-/sbin/depmod -a
-
-%postun
-/sbin/depmod -a
-
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post	-n kernel%{smpstr}-misc-bttv
+/sbin/depmod -a -F /boot/System.map-%{_kernel_ver} %{_kernel_ver}
+
+%postun	-n kernel%{smpstr}-misc-bttv
+/sbin/depmod -a -F /boot/System.map-%{_kernel_ver} %{_kernel_ver}
 
 %files -n kernel%{smpstr}-misc-bttv
 %defattr(644,root,root,755)
@@ -92,6 +94,6 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc CARDLIST Changes Insmod-options README* Sound-FAQ Specs Cards
 
-%files devel
-%defattr(644,root,root,755)
+#%files devel
+#%defattr(644,root,root,755)
 #/usr/src/linux/drivers/char/*
