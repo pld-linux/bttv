@@ -1,3 +1,7 @@
+
+# conditional build
+# _without_dist_kernel		without kernel form ditribution
+
 %define         _kernel_ver %(grep UTS_RELEASE %{_kernelsrcdir}/include/linux/version.h 2>/dev/null | cut -d'"' -f2)
 %define         _kernel_ver_str %(echo %{_kernel_ver} | sed s/-/_/g)
 %define         smpstr  %{?_with_smp:-smp}
@@ -38,8 +42,8 @@ Group(de):      Grundsätzlich/Kern
 Group(pl):      Podstawowe/J±dro
 Release:        %{release}@%{_kernel_ver_str}
 Prereq:         modutils >= 2.4.6-4
-Conflicts:      kernel < %{_kernel_ver}, kernel > %{_kernel_ver}
-Conflicts:      kernel-%{?_with_smp:up}%{!?_with_smp:smp}
+%{!?_without_dist_kernel:Conflicts:      kernel < %{_kernel_ver}, kernel > %{_kernel_ver}}
+%{!?_without_dist_kernel:Conflicts:      kernel-%{?_with_smp:up}%{!?_with_smp:smp}}
 Requires:       %{name} = %{version}
 Obsoletes:      bttv
 
