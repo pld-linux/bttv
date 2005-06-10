@@ -16,10 +16,10 @@ Version:	0.7.87
 Release:	1
 License:	GPL
 Group:		Base/Kernel
-Source0:	http://www.strusel007.de/linux/bttv/%{name}-%{version}.tar.gz
+Source0:	http://dl.bytesex.org/releases/video4linux/%{name}-%{version}.tar.gz
 # Source0-md5:	61a0e73e433173c10b6edd2e9f27d69e
 Patch0:		%{name}-Makefile.patch
-URL:		http://www.strusel007.de/linux/bttv/
+URL:		http://linux.bytesex.org/v4l2/bttv.html
 %{?with_dist_kernel:BuildPrereq:	kernel-source}
 ExclusiveArch:	%{ix86}
 Requires:	i2c
@@ -68,16 +68,18 @@ Header files for bttv.
 Pliki nag³ówkowe bttv.
 
 %prep
-%setup	-q
+%setup -q
 %patch0 -p1
 
 %build
-%{__make} EXTRA_CFLAGS="%{rpmcflags}"
+%{__make} \
+	EXTRA_CFLAGS="%{rpmcflags}"
 
 %install
 rm -rf $RPM_BUILD_ROOT
 
-%{__make} -C driver install DESTDIR=$RPM_BUILD_ROOT
+%{__make} -C driver install \
+	DESTDIR=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
