@@ -2,7 +2,7 @@
 # TODO: UP/SMP (if this spec is useful for something now?)
 #
 # Conditional build:
-%bcond_without  dist_kernel	# without kernel from distribution
+%bcond_without	dist_kernel	# without kernel from distribution
 #
 %define		_kernel_ver	%(grep UTS_RELEASE %{_kernelsrcdir}/include/linux/version.h 2>/dev/null | cut -d'"' -f2)
 %define		_kernel_ver_str	%(echo %{_kernel_ver} | sed s/-/_/g)
