@@ -20,13 +20,13 @@ Source0:	http://dl.bytesex.org/releases/video4linux/%{name}-%{version}.tar.gz
 # Source0-md5:	61a0e73e433173c10b6edd2e9f27d69e
 Patch0:		%{name}-Makefile.patch
 URL:		http://linux.bytesex.org/v4l2/bttv.html
-%{?with_dist_kernel:BuildPrereq:	kernel-source}
-ExclusiveArch:	%{ix86}
-Requires:	i2c
-PreReq:		modutils
 BuildRequires:	i2c-devel
+%{?with_dist_kernel:BuildRequires: kernel-source}
 BuildRequires:	rpmbuild(macros) >= 1.118
 BuildConflicts:	kernel-source < 2.2.0
+Requires:	i2c
+Requires:	modutils
+ExclusiveArch:	%{ix86}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -40,12 +40,12 @@ Modu³y j±dra dodaj±ce obs³ugê kart TV na uk³adach BrookTree BT 848 i
 %package -n kernel%{smpstr}-misc-bttv
 Summary:	Kernel modules for BrookTree TV tuner
 Summary(pl):	Modu³y j±dra do obs³ugi tunerów TV BrookTree
-Group:		Base/Kernel
 Release:	%{release}@%{_kernel_ver_str}
-PreReq:		modutils >= 2.4.6-4
+Group:		Base/Kernel
+Requires:	%{name} = %{version}-%{release}
+Requires:	modutils >= 2.4.6-4
 %{?with_dist_kernel:Conflicts:	kernel < %{_kernel_ver}, kernel > %{_kernel_ver}}
 %{?with_dist_kernel:Conflicts:	kernel-%{?with_smp:up}%{!?with_smp:smp}}
-Requires:	%{name} = %{version}
 Obsoletes:	bttv
 
 %description -n kernel%{smpstr}-misc-bttv
@@ -100,4 +100,4 @@ rm -rf $RPM_BUILD_ROOT
 
 #%files devel
 #%defattr(644,root,root,755)
-#/usr/src/linux/drivers/char/*
+#%{_kernelsrcdir}/drivers/char/*
