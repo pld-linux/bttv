@@ -1,0 +1,5 @@
+- changed CFLAGS to EXTRA_CFLAGS in %{__make}, CFLAGS=... broke whole build
+- %{__make} -C driver install, to avoid rebuilding while install
+- requires i2c, not kernel(i2c) (i2c modules pkg provides i2c)
+- %doc moved to main package, it should not be in pkg with kenrel modules
+- updated to 0.75.86, STB
